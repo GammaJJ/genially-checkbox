@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkbox Chunk Only</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      font-family: sans-serif;
+    }
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="checkboxContainer"></div>
+
+  <script>
+    const totalCheckboxes = 100; // total number in your full list
+
+    // Get start and count from URL params, default to first 4
+    const params = new URLSearchParams(window.location.search);
+    const start = parseInt(params.get('start')) || 0;
+    const count = parseInt(params.get('count')) || 4;
+
+    const container = document.getElementById('checkboxContainer');
+
+    for(let i = start; i < start + count && i < totalCheckboxes; i++) {
+      const id = `checkbox-${i}`;
+      const storageKey = `persist-checkbox-${i}`;
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = id;
+      checkbox.checked = localStorage.getItem(storageKey) === 'true';
+
+      checkbox.addEventListener('change', () => {
+        localStorage.setItem(storageKey, checkbox.checked);
+      });
+
+      container.appendChild(checkbox);
+    }
+  </script>
+
+</body>
+</html>
