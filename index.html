@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Persistent Checkbox</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 10px;
+    }
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <label>
+    <input type="checkbox" id="persistentCheckbox">
+    Mark as completed
+  </label>
+
+  <script>
+    const checkbox = document.getElementById('persistentCheckbox');
+
+    // Load the saved state
+    checkbox.checked = localStorage.getItem('checkboxState') === 'true';
+
+    // Save state when changed
+    checkbox.addEventListener('change', () => {
+      localStorage.setItem('checkboxState', checkbox.checked);
+    });
+  </script>
+</body>
+</html>
