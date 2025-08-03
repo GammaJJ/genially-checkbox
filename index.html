@@ -43,7 +43,21 @@
 
       container.appendChild(checkbox);
     }
+    // Add listener for cross-iframe "reset" message
+window.addEventListener("message", (event) => {
+  if (event.data === "resetCheckboxes") {
+    for (let i = start; i < start + count && i < totalCheckboxes; i++) {
+      const id = `checkbox-${i}`;
+      const checkbox = document.getElementById(id);
+      if (checkbox) {
+        checkbox.checked = false;
+        localStorage.setItem(`persist-checkbox-${i}`, 'false');
+      }
+    }
+  }
+});
   </script>
 </body>
 </html>
+
 
