@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reset All</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    button {
+      padding: 10px 16px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="resetAllCheckboxes()">Reset All Checkboxes</button>
+
+  <script>
+    function resetAllCheckboxes() {
+      // Send reset message to all other iframes
+      const frames = window.parent.document.querySelectorAll('iframe');
+      frames.forEach(f => {
+        try {
+          f.contentWindow.postMessage("resetCheckboxes", "*");
+        } catch (e) {}
+      });
+    }
+  </script>
+</body>
+</html>
